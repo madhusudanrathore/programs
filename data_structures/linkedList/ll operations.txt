@@ -1,6 +1,0 @@
-Print in Reverse
-Reverse a linked list
-Compare two linked lists
-Get Node Value from end (using recursion)
-Merge two sorted lists
-Delete repeated elements from a list
