@@ -1,37 +1,47 @@
-shift=10
+shift = 10
 
 def encryption(inp):
-	e=""
+	enc_str = ""
+	
 	for x in range(len(inp)):
-		char=inp[x]
-		if char==" ":
-			e += char
+		char = inp[x]
+		if char == " ":
+			enc_str += char
 		elif char.isupper():
-			e += chr((ord(char)+shift-65)%26+65)
+			enc_str += chr((ord(char)+shift-65)%26+65)
 		elif char.islower():
-			e += chr((ord(char)+shift-97)%26+97)
+			enc_str += chr((ord(char)+shift-97)%26+97)
 		else: # for numbers and special characters
-			e += chr((ord(char)+shift*10)%256)
-	return e
+			enc_str += chr((ord(char)+shift*10)%256)
+	
+	return enc_str
+
 
 def decryption(inp):
-	d=""
+	dec_str = ""
+	
 	for x in range(len(inp)):
-		char=inp[x]
-		if char==" ":
-			d += char
+		char = inp[x]
+		if char == " ":
+			dec_str += char
 		elif char.isupper():
-			d += chr((ord(char)+(26-shift)-65)%26+65) # using cyclic property for decryption
+			dec_str += chr((ord(char)+(26-shift)-65)%26+65) # using cyclic property for decryption
 		elif char.islower():
-			d += chr((ord(char)+(26-shift)-97)%26+97)
+			dec_str += chr((ord(char)+(26-shift)-97)%26+97)
 		else:
-			d += chr((ord(char)+(256-shift*10))%256)
-	return d
+			dec_str += chr((ord(char)+(256-shift*10))%256)
+	
+	return dec_str
 
-input_str = "hello STUDENT 0123456789 !$%&*()-+/*.,'`~#}{<>[]}{"
-encrypted_str = encryption(input_str)
-decrypted_str = decryption(encrypted_str)
 
-print ( "input:\t" + input_str )
-print ( "encryption:\t" + encrypted_str )
-print ( "decryption:\t" + decrypted_str )
+def main():
+	plain_text = "hello STUDENT 0123456789 !$%&*()-+/*.,'`~#}{<>[]}{"
+	cipher_text = encryption(plain_text)
+	deciphered_text = decryption(cipher_text)
+
+	print ( "input:\t" + plain_text )
+	print ( "encryption:\t" + cipher_text )
+	print ( "decryption:\t" + deciphered_text )
+
+if __name__ == '__main__':
+	main()
