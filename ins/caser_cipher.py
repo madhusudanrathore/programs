@@ -1,6 +1,4 @@
-shift = 10
-
-def encryption(inp):
+def encryption(inp, shift):
 	enc_str = ""
 	
 	for x in range(len(inp)):
@@ -16,8 +14,7 @@ def encryption(inp):
 	
 	return enc_str
 
-
-def decryption(inp):
+def decryption(inp, shift):
 	dec_str = ""
 	
 	for x in range(len(inp)):
@@ -33,11 +30,11 @@ def decryption(inp):
 	
 	return dec_str
 
-
 def main():
+	shift = 10
 	plain_text = "hello STUDENT 0123456789 !$%&*()-+/*.,'`~#}{<>[]}{"
-	cipher_text = encryption(plain_text)
-	deciphered_text = decryption(cipher_text)
+	cipher_text = encryption(plain_text, shift)
+	deciphered_text = decryption(cipher_text, shift)
 
 	print ( "input:\t" + plain_text )
 	print ( "encryption:\t" + cipher_text )
