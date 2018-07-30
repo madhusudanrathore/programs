@@ -2,15 +2,17 @@ def make_key_unique(key):
 	alphabet_string="abcdefghiklmnopqrstuvwxyz" # j is excluded
 	temp_key=""
 	temp_alphabet=""
+	
 	for i in xrange(len(key)):
 		temp=key[0:i+1]			
 		if key[i] not in temp_key and key[i] is not 'j': # j is excluded
 			temp_key+=key[i]
 			temp_alphabet=alphabet_string.replace(key[i],'')
 			alphabet_string=temp_alphabet
+	
 	return temp_key, alphabet_string
 
-def make_matrixrix(new_key, new_alphabet, matrix):
+def make_matrix(new_key, new_alphabet, matrix):
 	new_key_count=len(new_key)
 	new_alphabet_count=len(new_alphabet)
 	
@@ -25,7 +27,7 @@ def make_matrixrix(new_key, new_alphabet, matrix):
 				matrix[i][j]=new_alphabet[temp]
 				new_alphabet_count=new_alphabet_count-1
 	
-	print "matrixrix is as below:\n", matrix
+	print("matrixrix is as below:\n", matrix)
 	return matrix
 
 def find_row_col(ch, matrix):
@@ -70,6 +72,7 @@ def encryption(plain_text, matrix):
 
 def decryption(enc_str, matrix):
 	dec_str=""
+	
 	i=0
 	while i < len(enc_str): # encryption logic
 		temp_row_1, temp_col_1 = find_row_col(enc_str[i], matrix)
@@ -94,11 +97,11 @@ def decryption(enc_str, matrix):
 
 def main():
 	key = "keyword"
-	plain_text = "hellostudent" # plain text should be all lower case and without spaces
-	matrix = [[0 for x in range(5)] for y in range(5)] # define 5*5 matrixrix
+	plain_text = "hellostudent" # should be lower case and without spaces
+	matrix = [[0 for x in range(5)] for y in range(5)] # define 5*5 matrix
 
 	new_key, new_alphabet = make_key_unique(key)
-	matrix = make_matrixrix(new_key, new_alphabet, matrix)
+	matrix = make_matrix(new_key, new_alphabet, matrix)
 	cipher_text = encryption(plain_text, matrix)
 	deciphered_text = decryption(cipher_text, matrix)
 
