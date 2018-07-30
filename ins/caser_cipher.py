@@ -36,11 +36,11 @@ def main():
 	shift = 10
 	plain_text = "hello STUDENT 0123456789 !$%&*()-+/*.,'`~#}{<>[]}{"
 	cipher_text = encryption(plain_text, shift)
-	deciphered_text = decryption(cipher_text, shift)
+	decipher_text = decryption(cipher_text, shift)
 
 	print("input:\t" + plain_text)
 	print("encryption:\t" + cipher_text)
-	print("decryption:\t" + deciphered_text)
+	print("decryption:\t" + decipher_text)
 
 if __name__ == '__main__':
 	main()
