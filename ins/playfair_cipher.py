@@ -27,7 +27,7 @@ def make_matrix(new_key, new_alphabet, matrix):
 				matrix[i][j]=new_alphabet[temp]
 				new_alphabet_count=new_alphabet_count-1
 	
-	print("matrixrix is as below:\n", matrix)
+	print("MATRIX AS BELOW:\n{}\n".format(matrix))
 	return matrix
 
 def find_row_col(ch, matrix):
@@ -68,7 +68,7 @@ def encryption(plain_text, matrix):
 		enc_str += enc_1 + enc_2
 		i=i+2
 
-	return enc_str
+	return enc_str, temp_plain_text
 
 def decryption(enc_str, matrix):
 	dec_str=""
@@ -102,12 +102,13 @@ def main():
 
 	new_key, new_alphabet = make_key_unique(key)
 	matrix = make_matrix(new_key, new_alphabet, matrix)
-	cipher_text = encryption(plain_text, matrix)
-	deciphered_text = decryption(cipher_text, matrix)
+	cipher_text, final_plain_text = encryption(plain_text, matrix)
+	decipher_text = decryption(cipher_text, matrix)
 
-	print ( "input:\t" + plain_text )
-	print ( "encryption:\t" + cipher_text )
-	print ( "decryption:\t" + deciphered_text )
+	print("PLAIN TEXT:\t" + plain_text)
+	print("FINAL PLAIN TEXT:\t{}".format(final_plain_text))
+	print("CIPHER TEXT:\t" + cipher_text)
+	print("DECIPHER TEXT:\t" + decipher_text)
 
 if __name__ == '__main__':
 	main()
