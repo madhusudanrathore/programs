@@ -38,9 +38,9 @@ def main():
 	cipher_text = encryption(plain_text, shift)
 	decipher_text = decryption(cipher_text, shift)
 
-	print("input:\t" + plain_text)
-	print("encryption:\t" + cipher_text)
-	print("decryption:\t" + decipher_text)
+	print("PLAIN TEXT:\t" + plain_text)
+	print("CIPHER TEXT:\t" + cipher_text)
+	print("DECIPHER TEXT:\t" + decipher_text)
 
 if __name__ == '__main__':
 	main()
