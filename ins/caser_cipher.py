@@ -1,8 +1,9 @@
-def encryption(inp, shift):
+def encryption(plain_text, shift):
 	enc_str = ""
+	length = len(plain_text)
 	
-	for x in range(len(inp)):
-		char = inp[x]
+	for x in xrange(length):
+		char = plain_text[x]
 		if char == " ":
 			enc_str += char
 		elif char.isupper():
@@ -14,11 +15,12 @@ def encryption(inp, shift):
 	
 	return enc_str
 
-def decryption(inp, shift):
+def decryption(cipher_text, shift):
 	dec_str = ""
+	length = len(cipher_text)
 	
-	for x in range(len(inp)):
-		char = inp[x]
+	for x in xrange(length):
+		char = cipher_text[x]
 		if char == " ":
 			dec_str += char
 		elif char.isupper():
@@ -36,9 +38,9 @@ def main():
 	cipher_text = encryption(plain_text, shift)
 	deciphered_text = decryption(cipher_text, shift)
 
-	print ( "input:\t" + plain_text )
-	print ( "encryption:\t" + cipher_text )
-	print ( "decryption:\t" + deciphered_text )
+	print("input:\t" + plain_text)
+	print("encryption:\t" + cipher_text)
+	print("decryption:\t" + deciphered_text)
 
 if __name__ == '__main__':
 	main()
