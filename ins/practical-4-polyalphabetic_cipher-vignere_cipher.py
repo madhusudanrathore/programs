@@ -66,10 +66,9 @@ def main():
 	decipher_text = decryption(cipher_text, key)
 
 	print("PLAIN TEXT:\t" + plain_text)
-	print ("FINAL PLAIN TEXT:\t{}".format(final_plain_text))
+	print ("FINAL PLAIN TEXT:\t" + final_plain_text)
 	print("CIPHER TEXT:\t" + cipher_text)
 	print("DECIPHER TEXT:\t" + decipher_text)
-
 
 if __name__ == '__main__':
 	main()
