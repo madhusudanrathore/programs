@@ -39,6 +39,17 @@ def find_row_col(ch, matrix):
 def encryption(plain_text, matrix):
 	temp_plain_text=plain_text.replace(' ','') # remove spaces
 
+	temp = ""
+	for x in xrange(len(temp_plain_text)): # convert all to lower case
+		char = temp_plain_text[x]
+		if char.isupper():
+				temp += char.lower()
+		else:
+			temp += char
+
+
+	temp_plain_text = temp
+
 	for i in xrange(len(temp_plain_text)): # append 'x' for same consecutive characters
 		if (i!=len(temp_plain_text)-1) and (temp_plain_text[i] == temp_plain_text[i+1]):
 			temp=temp_plain_text[:i+1]+'x'+temp_plain_text[i+1:]
@@ -97,7 +108,7 @@ def decryption(enc_str, matrix):
 
 def main():
 	key = "keyword"
-	plain_text = "hellostudent" # should be lower case and without spaces
+	plain_text = "hello STUDENT"
 	matrix = [[0 for x in range(5)] for y in range(5)] # define 5*5 matrix
 
 	new_key, new_alphabet = make_key_unique(key)
