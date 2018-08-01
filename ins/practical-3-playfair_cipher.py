@@ -37,16 +37,15 @@ def find_row_col(ch, matrix):
 				return i, j
 
 def encryption(plain_text, matrix):
-	temp_plain_text=plain_text.replace(' ','') # remove spaces
-
 	temp = ""
+
+	temp_plain_text=plain_text.replace(' ','') # remove spaces
 	for x in xrange(len(temp_plain_text)): # convert all to lower case
 		char = temp_plain_text[x]
 		if char.isupper():
 				temp += char.lower()
 		else:
 			temp += char
-
 
 	temp_plain_text = temp
 
