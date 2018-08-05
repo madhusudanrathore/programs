@@ -1,3 +1,6 @@
+def modified_euler_totient():
+	return None
+
 def prepare_plain_text_vector(plain_text):
 	temp_vec = []
 	length = len(plain_text)
