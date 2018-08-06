@@ -1,5 +1,38 @@
-def modified_euler_totient():
-	return None
+''' rsa encryption decryption using extended euclidean algorithm '''
+def extended_euclidean(phi_n, e):
+	col1 = []
+	col2 = []
+	col3 = []
+	col4 = []
+
+	col1.append(1)
+	col2.append(0)
+	col3.append(phi_n)
+	col4.append(None)
+
+	col1.append(0)	
+	col2.append(1)
+	col3.append(e)
+	col4.append(col3[0]/col3[1])
+
+	# print("{}\n{}").format((col1[0], col2[0], col3[0], col4[0]), (col1[1], col2[1], col3[1], col4[1]))
+
+	not_found = True
+	i = 2
+	while not_found:
+		col1.append(col1[i-2]-(col1[i-1]*col4[i-1]))
+		col2.append(col2[i-2]-(col2[i-1]*col4[i-1]))
+		col3.append(col3[i-2]-(col3[i-1]*col4[i-1]))
+		col4.append(col3[i-1]/col3[i])
+		# print(col1[i], col2[i], col3[i], col4[i])
+		if col3[i] == 1:
+			not_found=False
+
+		i = i+1
+
+	d = col2[i-1]
+
+	return d
 
 def prepare_plain_text_vector(plain_text):
 	temp_vec = []
@@ -37,11 +70,12 @@ def main():
 	p2 = 11
 	n = p1*p2
 	e = 7
-	d = ((p1-1)*(p2-1)+1)/e
+	phi_n = (p1-1)*(p2-1)
+	d = extended_euclidean(phi_n, e)
 
 	print("P1:{}\tP2:{}\tN:{}\tE:{}\tD:{}".format(p1, p2, n, e, d))
 
-	plain_text = "hellomadhusudanrathore1235~@:13$"
+	plain_text = "hello STUDENT 0123456789 !\"#$%&'()+,-./* `$^*|\\?@" # all characters supported
 	plain_text_vector = []
 	cipher_text = []
 	decipher_text = []
