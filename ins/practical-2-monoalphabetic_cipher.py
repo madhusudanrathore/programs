@@ -1,46 +1,47 @@
-''' monoa;phabetic substitution cipher '''
-def encryption(plain_text, shift):
-	enc_str = ""
-	length = len(plain_text)
-	
-	for index in xrange(length):
-		char = plain_text[index]
-		if char.isupper():
-			enc_str += chr((ord(char)+shift-65)%26+65)
-		elif char.islower():
-			enc_str += chr((ord(char)+shift-97)%26+97)
-		elif char.isdigit():
-			enc_str += chr((ord(char)+shift-48)%10+48)
-		else: # special characters
-			enc_str += chr((ord(char)+shift-32)%16+32)
-	
-	return enc_str
+''' monoalphabetic substitution cipher '''
+def prepare_final_plain_text(plain_text): # convert to lowercase and remove space
+	final_plain_text = ''
+	final_plain_text += plain_text.lower().replace(' ','')
+	return final_plain_text
 
-def decryption(cipher_text, shift):
-	dec_str = ""
-	length = len(cipher_text)
+def encryption(plain_text, alphabet, substituted_alphabet):
+	cipher_text = ''
+
+	for index1 in xrange( len(plain_text) ):
+		for index2 in xrange( len( alphabet) ):
+			if plain_text[index1] == alphabet[index2]:
+				cipher_text += substituted_alphabet[index2]
 	
-	for index in xrange(length):
-		char = cipher_text[index]
-		if char.isupper():
-			dec_str += chr((ord(char)+(26-shift)-65)%26+65) # using cyclic property for decryption
-		elif char.islower():
-			dec_str += chr((ord(char)+(26-shift)-97)%26+97)
-		elif char.isdigit():
-			dec_str += chr((ord(char)+(10-shift)-48)%10+48)
-		else: # special characters
-			dec_str += chr((ord(char)+(16-shift)-32)%16+32)
-	
-	return dec_str
+	return cipher_text
+
+def decryption(cipher_text, alphabet, substituted_alphabet):
+	decipher_text = ''
+
+	for index1 in xrange( len(cipher_text) ):
+		for index2 in xrange( len( alphabet) ):
+			if cipher_text[index1] == substituted_alphabet[index2]:
+				decipher_text += alphabet[index2]
+
+	return decipher_text
 
 def main():
-	shift = 1
-	plain_text = "hello STUDENT 0123456789 !\"#$%&'()+,-./*" # no other special characters than mentioned
-	cipher_text = encryption(plain_text, shift)
-	decipher_text = decryption(cipher_text, shift)
+	alphabet = ['a', 'b', 'c', 'd','e', 'f', 'g', 'h', 'i',
+				'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+				's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+	substituted_alphabet = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o','p',
+							'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
+							'z', 'x', 'c', 'v', 'b', 'n', 'm']
 
+	plain_text = "hello STUDENT" # no characters other than specified in alphabet list
 	print("PLAIN TEXT:\t" + plain_text)
+
+	final_plain_text = prepare_final_plain_text(plain_text)
+	print("FINAL PLAIN TEXT\t{}".format(final_plain_text))
+
+	cipher_text = encryption(final_plain_text, alphabet, substituted_alphabet)
 	print("CIPHER TEXT:\t" + cipher_text)
+
+	decipher_text = decryption(cipher_text, alphabet, substituted_alphabet)
 	print("DECIPHER TEXT:\t" + decipher_text)
 
 if __name__ == '__main__':
