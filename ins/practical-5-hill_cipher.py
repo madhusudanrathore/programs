@@ -12,7 +12,7 @@ def prepare_key(length):
 	
 	return temp_vec # return numpy matrix
 
-def prepare_all_plain_text_entities(plain_text, key_len):
+def prepare_entities(plain_text, key_len):
 	final_plain_text = ""
 	final_plain_text += plain_text.lower().replace(' ','') # convert to lowercase and remove space
 	final_plain_text_len = len(final_plain_text) # final input length
@@ -22,6 +22,7 @@ def prepare_all_plain_text_entities(plain_text, key_len):
 		for x in range( temp ):
 			final_plain_text += "x"
 
+	final_plain_text_len = len(final_plain_text) # new final length after padding
 	final_plain_text_vector = numpy.zeros(shape=(final_plain_text_len,1))
 
 	for x in xrange(final_plain_text_len): # prepare plaintext vector
@@ -35,24 +36,19 @@ def encryption(final_plain_text_vector, key_vector):
 	final_plain_text_vector_len = len(final_plain_text_vector)
 	cipher_text_vector = numpy.zeros(shape=(final_plain_text_vector_len,1))
 	key_len = len(key_vector)
-
-	x = 0
-	while x < final_plain_text_vector_len:
-		temp_final_plain_text_vector = numpy.zeros(shape=(key_len,1))
-		temp_cipher_text_vector = numpy.zeros(shape=(key_len,1))
-
-		for y in xrange(key_len): # get part of plain text to be encrypted
-			temp_final_plain_text_vector[y][0] = final_plain_text_vector[x+y][0]
-
-		# multiplication of KEY VECTOR with temporary PLAIN TEXT, C = K*P
-		temp_cipher_text_vector = key_vector*temp_final_plain_text_vector
-
-		# append to final cipher vector
-		for i in xrange(key_len):
-			cipher_text_vector[x+i][0] = temp_cipher_text_vector[i][0]%26
-			cipher_text += chr(int(cipher_text_vector[x+i][0]%26)+97)
-
-		x = x+key_len
+	
+	for index1 in xrange( final_plain_text_vector_len/key_len ):
+		# get temp plain text
+		temp = numpy.zeros(shape=(key_len,1))
+		for index2 in xrange(key_len):
+			temp[index2][0] = final_plain_text_vector[index1*key_len+index2][0]
+		# multiplication of KEY VECTOR with TEMP PLAIN TEXT, C = K*P
+		temp_result = key_vector*temp
+		# append temporary results
+		for index3 in xrange(key_len):
+			val = temp_result[index3][0]%26
+			cipher_text_vector[index1*key_len+index3][0] = val
+			cipher_text += chr(int(val)+97)
 
 	return cipher_text_vector, cipher_text
 
@@ -62,29 +58,24 @@ def decryption(cipher_text_vector, key_vector):
 	key_len = len(key_vector)
 	decipher_text_vector = numpy.zeros(shape=(cipher_text_vector_len,1))
 
-	x = 0
-	while x < cipher_text_vector_len:
-		temp_cipher_text_vector = numpy.zeros(shape=(key_len,1))
-		temp_decipher_text_vector = numpy.zeros(shape=(key_len,1))
-
-		for y in xrange(key_len): # get part of plain text to be encrypted
-			temp_cipher_text_vector[y][0] = cipher_text_vector[x+y][0]
-
-		# multiplication of INVERSE KEY VECTOR with temporary CIPHER TEXT, D = K^-1*C
-		temp_decipher_text_vector = numpy.linalg.inv(key_vector)*temp_cipher_text_vector
-
-		# append to final decipher vector
-		for i in xrange(key_len):
-			decipher_text_vector[x+i][0] = temp_decipher_text_vector[i][0]%26
-			decipher_text += chr(int(decipher_text_vector[x+i][0])+97)
-
-		x = x+key_len
+	for index1 in xrange( cipher_text_vector_len/key_len ):
+		# get temp cipher text
+		temp = numpy.zeros(shape=(key_len,1))
+		for index2 in xrange(key_len):
+			temp[index2][0] = cipher_text_vector[index1*key_len+index2][0]
+		# multiplication of INVERSE KEY VECTOR with TEMP PLAIN TEXT, D = K^-1*C
+		temp_result = numpy.linalg.inv(key_vector)*temp
+		# append temporary results
+		for index3 in xrange(key_len):
+			val = temp_result[index3][0]%26
+			decipher_text_vector[index1*key_len+index3][0] = val
+			decipher_text += chr(int(val)+97)
 
 	return decipher_text_vector, decipher_text
 
 def main():
-	key_len = 2 # will produce keyword of length keylen*key_len
-	plain_text = 'madhusudan' # no special characters
+	key_len = 5 # will produce keyword of length (key_len*key_len)
+	plain_text = 'madhu sudan' # no special characters
 	cipher_text = ''
 	decipher_text = ''
 
@@ -94,9 +85,8 @@ def main():
 	decipher_text_vector = None
 	
 	key_vector = prepare_key(key_len)
-	# print(numpy.linalg.inv(key_vector))
 
-	final_plain_text_vector, final_plain_text = prepare_all_plain_text_entities(plain_text, key_len)	
+	final_plain_text_vector, final_plain_text = prepare_entities(plain_text, key_len)	
 	cipher_text_vector, cipher_text = encryption(final_plain_text_vector, key_vector)
 	decipher_text_vector, decipher_text = decryption(cipher_text_vector, key_vector)
 
