@@ -33,15 +33,13 @@ def main():
 							'z', 'x', 'c', 'v', 'b', 'n', 'm']
 
 	plain_text = "hello STUDENT" # no characters other than specified in alphabet list
-	print("PLAIN TEXT:\t" + plain_text)
-
 	final_plain_text = prepare_final_plain_text(plain_text)
-	print("FINAL PLAIN TEXT\t{}".format(final_plain_text))
-
 	cipher_text = encryption(final_plain_text, alphabet, substituted_alphabet)
-	print("CIPHER TEXT:\t" + cipher_text)
-
 	decipher_text = decryption(cipher_text, alphabet, substituted_alphabet)
+
+	print("PLAIN TEXT:\t" + plain_text)
+	print("FINAL PLAIN TEXT\t{}".format(final_plain_text))
+	print("CIPHER TEXT:\t" + cipher_text)
 	print("DECIPHER TEXT:\t" + decipher_text)
 
 if __name__ == '__main__':
