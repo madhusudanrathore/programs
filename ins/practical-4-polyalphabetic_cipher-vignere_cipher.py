@@ -65,10 +65,6 @@ def decryption(final_plain_text, key):
 def main():
 	key = "keyword"
 	plain_text = "hello STUDENT 0123456789 !\"#$%&'()+,-./*" # no other special characters
-	final_plain_text = None
-	cipher_text = None
-	decipher_text = None
-
 	final_plain_text=prepare_input(plain_text, key)
 	cipher_text = encryption(final_plain_text, key)
 	decipher_text = decryption(cipher_text, key)
