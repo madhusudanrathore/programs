@@ -23,12 +23,12 @@ def prepare_key_and_key_vector(key):
 
 	return key_vec, final_key
 
-def prepare_entities(plain_text, key_cols):
+def prepare_entities(plain_text, key_vector_cols):
 	final_plain_text = ""
 	final_plain_text += plain_text.lower().replace(' ','') # convert to lowercase and remove space
 
-	if len(final_plain_text)%key_cols != 0: # apply padding
-		temp = key_cols-len(final_plain_text)%key_cols
+	if len(final_plain_text)%key_vector_cols != 0: # apply padding
+		temp = key_vector_cols-len(final_plain_text)%key_vector_cols
 		for x in range( temp ):
 			final_plain_text += "x"
 
@@ -41,47 +41,47 @@ def prepare_entities(plain_text, key_cols):
 
 	return final_plain_text_vector, final_plain_text
 
-def encryption(final_plain_text_vector, key_vector, key_cols):
+def encryption(final_plain_text_vector, key_vector, key_vector_cols):
 	cipher_text = ''
 	final_plain_text_vector_len = len(final_plain_text_vector)
 	cipher_text_vector = numpy.zeros(shape=(final_plain_text_vector_len,1))
 	
-	for index1 in xrange( final_plain_text_vector_len/key_cols ):
+	for index1 in xrange( final_plain_text_vector_len/key_vector_cols ):
 		# get temp plain text
-		temp = numpy.zeros(shape=(key_cols,1))
-		for index2 in xrange(key_cols):
-			temp[index2][0] = final_plain_text_vector[index1*key_cols+index2][0]
+		temp = numpy.zeros(shape=(key_vector_cols,1))
+		for index2 in xrange(key_vector_cols):
+			temp[index2][0] = final_plain_text_vector[index1*key_vector_cols+index2][0]
 		
 		# multiplication of KEY VECTOR with TEMP PLAIN TEXT, C = K*P
 		temp_result = numpy.matmul(key_vector,temp)
 		
 		# append temporary results
-		for index3 in xrange(key_cols):
+		for index3 in xrange(key_vector_cols):
 			val = temp_result[index3][0]%26
-			cipher_text_vector[index1*key_cols+index3][0] = val
+			cipher_text_vector[index1*key_vector_cols+index3][0] = val
 			cipher_text += chr(int(val)+97)
 
 	return cipher_text_vector, cipher_text
 
-def decryption(cipher_text_vector, key_vector, key_cols):
+def decryption(cipher_text_vector, key_vector, key_vector_cols):
 	decipher_text = ''
 	cipher_text_vector_len = len(cipher_text_vector)
 	decipher_text_vector = numpy.zeros(shape=(cipher_text_vector_len,1))
 	inverse_key_vector = [  [4,9,15], [15, 17, 6], [24, 0, 17]]
 
-	for index1 in xrange( cipher_text_vector_len/key_cols ):
+	for index1 in xrange( cipher_text_vector_len/key_vector_cols ):
 		# get temp cipher text
-		temp = numpy.zeros(shape=(key_cols,1))
-		for index2 in xrange(key_cols):
-			temp[index2][0] = cipher_text_vector[index1*key_cols+index2][0]
+		temp = numpy.zeros(shape=(key_vector_cols,1))
+		for index2 in xrange(key_vector_cols):
+			temp[index2][0] = cipher_text_vector[index1*key_vector_cols+index2][0]
 		
 		# multiplication of INVERSE KEY VECTOR with TEMP CIPHER TEXT, D = K^-1*C
 		temp_result = numpy.matmul(inverse_key_vector, temp)
 		
 		# append temporary results
-		for index3 in xrange(key_cols):
+		for index3 in xrange(key_vector_cols):
 			val = temp_result[index3][0]%26
-			decipher_text_vector[index1*key_cols+index3][0] = val
+			decipher_text_vector[index1*key_vector_cols+index3][0] = val
 			decipher_text += chr(int(val)+97)
 
 	return decipher_text_vector, decipher_text
@@ -90,11 +90,11 @@ def main():
 	key = 'rrfvs vc ct' # length must be such that all characters sum to perfect square
 	plain_text = 'madhu sudan' # no special characters
 	key_vector, final_key = prepare_key_and_key_vector(key)
-	key_cols = len(key_vector)
+	key_vector_cols = len(key_vector)
 
-	final_plain_text_vector, final_plain_text = prepare_entities(plain_text, key_cols)
-	cipher_text_vector, cipher_text = encryption(final_plain_text_vector, key_vector, key_cols)
-	decipher_text_vector, decipher_text = decryption(cipher_text_vector, key_vector, key_cols)
+	final_plain_text_vector, final_plain_text = prepare_entities(plain_text, key_vector_cols)
+	cipher_text_vector, cipher_text = encryption(final_plain_text_vector, key_vector, key_vector_cols)
+	decipher_text_vector, decipher_text = decryption(cipher_text_vector, key_vector, key_vector_cols)
 
 	print("KEY:{}\nFINAL KEY:{}\nKEY VECTOR\n{}\n".format(key, final_key, key_vector.tolist()))
 	print("PLAIN TEXT:\t{}\nFINAL PLAIN TEXT:\t{}\nFINAL PLAIN TEXT VECTOR:\n{}\n".format(plain_text, final_plain_text, final_plain_text_vector.tolist()))
