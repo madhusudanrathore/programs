@@ -27,7 +27,8 @@ def main():
 
 	key_a = key_by_a(num1, secret_a, pub_b)
 	key_b = key_by_b(num1, pub_a, secret_b)
-	print("KEY A\t{}\nKEY B\t{}".format(key_a, key_b))
+	if key_a == key_b:
+		print("KEY A\t{}\nKEY B\t{}\nKEYS EXCHANGED".format(key_a, key_b))
 
 if __name__ == '__main__':
 	main()
