@@ -93,6 +93,7 @@ def main():
 	cipher_block = simple_des(plain_text, key, num_fiestel_cycles)
 	decipher_block = simple_des(cipher_block, key, num_fiestel_cycles, True)
 
+	print("FIESTEL CYCLES\t{}".format(num_fiestel_cycles))
 	print("KEY\t{}".format(key))
 	print("PLAIN TEXT\t{}".format(plain_text))
 	print("CIPHER BLOCK\t{}".format(cipher_block))
