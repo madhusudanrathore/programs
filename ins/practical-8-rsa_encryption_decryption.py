@@ -1,9 +1,6 @@
 ''' rsa encryption decryption using extended euclidean algorithm '''
 def extended_euclidean(phi_n, e):
-	col1 = []
-	col2 = []
-	col3 = []
-	col4 = []
+	col1, col2, col3, col4 = [], [], [], []
 
 	col1.append(1)
 	col2.append(0)
@@ -22,14 +19,11 @@ def extended_euclidean(phi_n, e):
 		col2.append(col2[i-2]-(col2[i-1]*col4[i-1]))
 		col3.append(col3[i-2]-(col3[i-1]*col4[i-1]))
 		col4.append(col3[i-1]/col3[i])
-		
 		if col3[i] == 1:
 			not_found=False
-
 		i = i+1
 
 	d = col2[i-1]
-
 	return d
 
 def prepare_plain_text_vector(plain_text):
