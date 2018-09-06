@@ -4,7 +4,7 @@ def make_key_unique(key):
 	temp_key = ""
 	temp_alphabet = ""
 	
-	for i in xrange(len(key)):
+	for i in range(len(key)):
 		temp = key[0:i+1]			
 		if key[i] not in temp_key and key[i] is not 'j': # j is excluded
 			temp_key += key[i]
@@ -33,7 +33,7 @@ def prepare_matrix_and_plain_text(new_key, new_alphabet, matrix, plain_text):
 	temp_plain_text = plain_text.replace(' ','') # remove spaces
 	temp = ""
 
-	for x in xrange(len(temp_plain_text)): # convert all to lower case
+	for x in range(len(temp_plain_text)): # convert all to lower case
 		char = temp_plain_text[x]
 		if char.isupper():
 				temp += char.lower()
@@ -42,7 +42,7 @@ def prepare_matrix_and_plain_text(new_key, new_alphabet, matrix, plain_text):
 
 	temp_plain_text = temp
 
-	for i in xrange(len(temp_plain_text)): # append 'x' for same consecutive characters
+	for i in range(len(temp_plain_text)): # append 'x' for same consecutive characters
 		if (i != len(temp_plain_text)-1) and (temp_plain_text[i] == temp_plain_text[i+1]):
 			temp = temp_plain_text[:i+1]+'x'+temp_plain_text[i+1:]
 			temp_plain_text = temp
@@ -53,8 +53,8 @@ def prepare_matrix_and_plain_text(new_key, new_alphabet, matrix, plain_text):
 	return matrix, temp_plain_text
 
 def find_row_col(ch, matrix):
-	for i in xrange(5):
-		for j in xrange(5):
+	for i in range(5):
+		for j in range(5):
 			if matrix[i][j] is ch:
 				return i, j
 

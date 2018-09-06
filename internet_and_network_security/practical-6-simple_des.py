@@ -6,16 +6,16 @@ def calculate_new_r(l, r, key_new):
 	s2_box = [[ [1,0,0], [0,0,0], [1,1,0], [1,0,1], [1,1,1], [0,0,1], [0,1,1], [0,1,0] ],
 				[ [1,0,1], [0,1,1], [0,0,0], [1,1,1], [1,1,0], [0,1,0], [0,0,1], [1,0,0] ]]
 
-	expanded_r = [0 for i in xrange(8)]
-	r_new = [0 for i in xrange(6)]
+	expanded_r = [0 for i in range(8)]
+	r_new = [0 for i in range(6)]
 	
 	# expand r from 6 to 8 bits	
 	expanded_r[0], expanded_r[1], expanded_r[2], expanded_r[3] = r[1], r[0], r[3], r[2]
 	expanded_r[4], expanded_r[5], expanded_r[6], expanded_r[7] = r[3], r[2], r[4], r[5]
 
 	# calculate temporary r by XORing with key
-	temp_r_new = [0 for x in xrange(8)]
-	for index in xrange(len(expanded_r)):
+	temp_r_new = [0 for x in range(8)]
+	for index in range(len(expanded_r)):
 		temp_r_new[index] = key_new[index]^expanded_r[index] # temp = k_i XOR expanded_r-1
 
 	# now get values from s1_box and s2_box
@@ -55,11 +55,11 @@ def simple_des(data_block, key, num_fiestel_cycles, decrypt = False):
 	l = data_block[0:6]
 	r = data_block[6:12]
 	l_new = r[:]
-	r_new = [0 for i in xrange(6)]
-	new_data_block = [0 for i in xrange(12)]
+	r_new = [0 for i in range(6)]
+	new_data_block = [0 for i in range(12)]
 
 	# apply defined fiestel cycles
-	for index1 in xrange(num_fiestel_cycles):
+	for index1 in range(num_fiestel_cycles):
 		
 		# get key_new by shifting
 		if decrypt == False:
@@ -70,7 +70,7 @@ def simple_des(data_block, key, num_fiestel_cycles, decrypt = False):
 		# get new r and l
 		l_new = r[:]
 		temp = calculate_new_r(l, r, new_temp_key)
-		for index2 in xrange(len(r_new)):
+		for index2 in range(len(r_new)):
 			r_new[index2] = l[index2] ^ temp[index2]
 		
 		l = l_new[:]

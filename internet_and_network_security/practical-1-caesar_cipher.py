@@ -3,7 +3,7 @@ def encryption(plain_text, shift):
 	enc_str = ""
 	length = len(plain_text)
 	
-	for index in xrange(length):
+	for index in range(length):
 		char = plain_text[index]
 		if char.isupper():
 			enc_str += chr((ord(char)+shift-65)%26+65)
@@ -20,7 +20,7 @@ def decryption(cipher_text, shift):
 	dec_str = ""
 	length = len(cipher_text)
 	
-	for index in xrange(length):
+	for index in range(length):
 		char = cipher_text[index]
 		if char.isupper():
 			dec_str += chr((ord(char)+(26-shift)-65)%26+65) # using cyclic property for decryption

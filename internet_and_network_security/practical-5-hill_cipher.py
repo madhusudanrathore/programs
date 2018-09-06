@@ -13,8 +13,8 @@ def prepare_key_and_key_vector(key):
 		sys.exit(0)
 
 	key_vec = numpy.zeros(shape=(int_sqrt_key,int_sqrt_key))
-	for x in xrange(int_sqrt_key):
-		for y in xrange(int_sqrt_key):
+	for x in range(int_sqrt_key):
+		for y in range(int_sqrt_key):
 			key_vec[x][y] = ord(final_key[ x*int_sqrt_key + y ])-97
 
 	if numpy.linalg.det(key_vec)==0: # inverse not possible
@@ -35,7 +35,7 @@ def prepare_entities(plain_text, key_vector_cols):
 	final_plain_text_len = len(final_plain_text) # final length after padding
 	
 	final_plain_text_vector = numpy.zeros(shape=(final_plain_text_len,1)) # prepare plaintext vector
-	for x in xrange(final_plain_text_len):
+	for x in range(final_plain_text_len):
 		char = final_plain_text[x]
 		final_plain_text_vector[x][0] = (ord(char)-97)%26
 
@@ -46,17 +46,17 @@ def encryption(final_plain_text_vector, key_vector, key_vector_cols):
 	final_plain_text_vector_len = len(final_plain_text_vector)
 	cipher_text_vector = numpy.zeros(shape=(final_plain_text_vector_len,1))
 	
-	for index1 in xrange( final_plain_text_vector_len/key_vector_cols ):
+	for index1 in range( int(final_plain_text_vector_len/key_vector_cols )):
 		# get temp plain text
 		temp = numpy.zeros(shape=(key_vector_cols,1))
-		for index2 in xrange(key_vector_cols):
+		for index2 in range(key_vector_cols):
 			temp[index2][0] = final_plain_text_vector[index1*key_vector_cols+index2][0]
 		
 		# multiplication of KEY VECTOR with TEMP PLAIN TEXT, C = K*P
 		temp_result = numpy.matmul(key_vector,temp)
 		
 		# append temporary results
-		for index3 in xrange(key_vector_cols):
+		for index3 in range(key_vector_cols):
 			val = temp_result[index3][0]%26
 			cipher_text_vector[index1*key_vector_cols+index3][0] = val
 			cipher_text += chr(int(val)+97)
@@ -69,17 +69,17 @@ def decryption(cipher_text_vector, key_vector, key_vector_cols):
 	decipher_text_vector = numpy.zeros(shape=(cipher_text_vector_len,1))
 	inverse_key_vector = [  [4,9,15], [15, 17, 6], [24, 0, 17]]
 
-	for index1 in xrange( cipher_text_vector_len/key_vector_cols ):
+	for index1 in range( int(cipher_text_vector_len/key_vector_cols )):
 		# get temp cipher text
 		temp = numpy.zeros(shape=(key_vector_cols,1))
-		for index2 in xrange(key_vector_cols):
+		for index2 in range(key_vector_cols):
 			temp[index2][0] = cipher_text_vector[index1*key_vector_cols+index2][0]
 		
 		# multiplication of INVERSE KEY VECTOR with TEMP CIPHER TEXT, D = K^-1*C
 		temp_result = numpy.matmul(inverse_key_vector, temp)
 		
 		# append temporary results
-		for index3 in xrange(key_vector_cols):
+		for index3 in range(key_vector_cols):
 			val = temp_result[index3][0]%26
 			decipher_text_vector[index1*key_vector_cols+index3][0] = val
 			decipher_text += chr(int(val)+97)

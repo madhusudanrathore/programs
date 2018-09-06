@@ -7,8 +7,8 @@ def prepare_final_plain_text(plain_text): # convert to lowercase and remove spac
 def encryption(plain_text, alphabet, substituted_alphabet):
 	cipher_text = ''
 
-	for index1 in xrange( len(plain_text) ):
-		for index2 in xrange( len( alphabet) ):
+	for index1 in range( len(plain_text) ):
+		for index2 in range( len( alphabet) ):
 			if plain_text[index1] == alphabet[index2]:
 				cipher_text += substituted_alphabet[index2]
 	
@@ -17,8 +17,8 @@ def encryption(plain_text, alphabet, substituted_alphabet):
 def decryption(cipher_text, alphabet, substituted_alphabet):
 	decipher_text = ''
 
-	for index1 in xrange( len(cipher_text) ):
-		for index2 in xrange( len( alphabet) ):
+	for index1 in range( len(cipher_text) ):
+		for index2 in range( len( alphabet) ):
 			if cipher_text[index1] == substituted_alphabet[index2]:
 				decipher_text += alphabet[index2]
 
