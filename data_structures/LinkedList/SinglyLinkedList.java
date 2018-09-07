@@ -145,46 +145,40 @@ class SinglyLinkedList{
         }
     }
 
-    // void delete_before(int value){
-    //     struct singly_node * pre_temp2;
-    //     if (head == NULL)
-    //         cout << "EMPTY LIST" << endl;
-    //     else if (head->next == NULL)//1 node only present
-    //         cout << "only ONE NODE Present" << endl;
-    //     else {//more than 1 nodes present
-    //         pre_temp = head;
-    //         temp = head->next;
+    void delete_before(int value){
+        SinglyNode pre_temp2=null;
+        if(this.head.next==null)//1 node only present
+            System.out.println( "DELETE BEFORE " + value + ",ONE NODE Present" );
+        else {//more than 1 nodes present
+            pre_temp=this.head;
+            this.temp=this.head.next;
 
-    //         int val;
-    //         cout << "Insert NODE VALUE whose PRECEEDING NODE is to be DELETED\t";
-    //         cin >> val;
-
-    //         if( temp->data == val){//node to be deleted is before 2nd node, 1st node to be deleted
-    //             cout << pre_temp->data << " DELETED" << endl;
-    //             head = temp;
-    //             delete pre_temp;
-    //         }else if( pre_temp->data == val){//NODE to be DELETED is BEFORE 1st NODE, i.e. it doesn't exist
-    //             cout << "NO NODE BEFORE 1st NODE" << endl;
-    //         }
-    //         else{//other node to be deleted
-    //             temp = temp->next;
-    //             while( temp->next != NULL && temp->data !=val ){
-    //                 pre_temp = pre_temp->next;
-    //                 temp = temp->next;
-    //             }
-    //             if( temp->data == val){//value found
-    //                 pre_temp2 = pre_temp->next;
-    //                 pre_temp->next = temp;
-    //                 cout << pre_temp2->data << " DELETED" << endl;
-    //                 delete pre_temp2;
-    //             }
-    //             else{//value not found
-    //                 cout << val << " NOT FOUND" << endl;
-    //             }
-    //         }
-    //     }
-
-    // }
+            if( pre_temp.data==value){//node to be DELETED is BEFORE 1st node, i.e. it doesn't exist
+                System.out.println( "DELETE BEFORE " + value + ", IS 1st NODE" );
+            }else if(this.temp.data==value){//node to be deleted is before 2nd node, 1st node to be deleted
+                System.out.println( "DELETE BEFORE " + value + ", " + pre_temp.data + ", DELETED" );
+                this.head = this.temp;
+                pre_temp=null;
+            }
+            else{//other node to be deleted
+                this.temp=this.temp.next;
+                while(this.temp.next!=null && this.temp.data!=value ){
+                    pre_temp=pre_temp.next;
+                    this.temp=this.temp.next;
+                }
+                if(this.temp.data==value){//value found
+                    pre_temp2=pre_temp.next;
+                    pre_temp.next=this.temp;
+                    System.out.println( "DELETE BEFORE " + value + ", " + pre_temp2.data + ", DELETED" );
+                    pre_temp2=null;
+                }
+                else{//value not found
+                    System.out.println( " NOT FOUND" );
+                }
+            }
+            System.gc();
+        }
+    }
 
     void delete_after(int value){
         if(this.head.next==null && this.head.data==value){
@@ -234,7 +228,7 @@ class SinglyLinkedList{
         linked_list.display();
 
         for(int i=0; i<5; ++i){
-            // linked_list.delete_before(i+1);
+            linked_list.delete_before(i+1);
             linked_list.delete_after(i+6);
         }
         linked_list.display();
