@@ -1,0 +1,13 @@
+Constructor
+
+-It is a special member function whose task is to initialize the object of it's class.
+
+	(1) They have the same name as the class name.
+	(2) They do not have any return type.
+	(3) They are invoked automatically when the object's are created.
+
+Types Of Constructor.
+
+	(1)Default Constructor
+	(2)Parameterized Constructor
+	(3)Copy Constructor

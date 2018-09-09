@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+    $("button").click(function(){
+        var div = $("div");  
+        div.animate({left: '100px'}, "slow");
+        div.animate({fontSize: '44px'}, "slow");
+    });
+});
+</script> 
+</head>
+<body>
+
+<button>Start Animation</button>
+
+<div style="background:#98bf21;height:100px;width:200px;position:absolute;">Asif</div>
+
+</body>
+</html>

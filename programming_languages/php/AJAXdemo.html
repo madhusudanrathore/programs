@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    function mailsend() {
+        $("#loader").show();
+        jQuery.ajax({
+            url:"mail.php",
+            data:{name: $('input#name').val(),email: $('input#email').val(),subject: $('input#subject').val(),msg: $('textarea#msg').val()},
+            type: "POST",
+            success:function(data){
+                $('#name,#email,#subject,#msg').val('');
+                $("#resmsg").html(data);
+                $("#loader").hide();
+            },  
+
+        });
+    }
+</script>
+
+
+<div class="col-sm-6 col-xs-12">
+                                    <div id="resmsg"></div>
+                                    <input type="text" placeholder="Name" name="name" id="name" required>
+                                    <input type="text"  placeholder="Email" id="email" name="email">
+                                    <input type="text" placeholder="Subject" id="subject" name="subject">
+                                    <textarea maxlength="300" placeholder="Message" id="msg" name="msg"></textarea>
+                                    <input type="submit" onclick="mailsend();" value="Submit">
+                            <!-- </form> -->
+                            </div>
+
+
+<style type="text/css">
+    .loader {
+        position: fixed;
+        text-align: center;
+        right: 40%;
+        top: 40%;
+        display: none;
+    }
+</style>
+<div class="loader" id="loader">
+    <img src="img/loader.gif" width="200">
+</div>

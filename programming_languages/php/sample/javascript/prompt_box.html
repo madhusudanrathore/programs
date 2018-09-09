@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to demonstrate the prompt box.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+<!-- <input type="text" id="demo1" name=""> -->
+
+<script>
+function myFunction() {
+    var person = prompt("Please enter your name");
+    
+        document.getElementById("demo").innerHTML = person ;
+        // document.getElementById("demo1").value = person ;
+}
+</script>
+
+</body>
+</html>

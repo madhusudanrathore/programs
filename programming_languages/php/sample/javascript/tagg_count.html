@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Hello World!</p>
+
+<p>How many paragraphs in this document?</p>
+
+<p>This example demonstrates the length property of a nodelist.</p>
+
+<p id="demo"></p>
+
+<h1>Asif </h1>
+<h1 id="demo1"></h1>
+
+<script>
+var myNodelist = document.getElementsByTagName("p");
+document.getElementById("demo").innerHTML = myNodelist.length;
+
+var asif = document.getElementsByTagName("h1");
+document.getElementById("demo1").innerHTML = asif.length;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body  id="asif">
+
+<!-- <h1>What Can JavaScript Do?</h1> -->
+
+<p>JavaScript can change the style of an HTML element.</p>
+
+<script>
+function myFunction() {
+    var x = document.getElementById("asif");
+    console.log(x);
+    x.style.fontSize = "25px";           
+    x.style.color = "red";
+    x.style.backgroundImage= "url('city.jpg')"; 
+    x.style.backgroundRepeat="no-repeat";
+    x.style.backgroundSize="100%";
+    x.style.backgroundAtachment="fixed";
+    
+}
+</script>
+
+<button type="button" onclick="myFunction()">Click Me!</button>
+</body>
+</html> 

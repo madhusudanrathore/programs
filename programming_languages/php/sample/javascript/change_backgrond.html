@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>This is a p element</p>
+
+<p>This is also a p element.</p>
+
+<h1>This is h1 element</h1>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+function myFunction(){
+    var asif = document.getElementsByTagName("p");
+    console.log(asif);
+    var i ;
+    for (var i = 0 ;  i < asif.length; i++) {
+        asif[i].style.backgroundColor = "yellow"; 
+    };
+
+    var asif1 = document.getElementsByTagName("h1");
+    var i ;
+    for (var i = 0 ; i <asif1.length; i++) {
+        asif1[i].style.color = "red";
+        asif1[i].style.backgroundColor = "yellow";
+    };
+}
+
+</script>
+
+</body>
+</html>

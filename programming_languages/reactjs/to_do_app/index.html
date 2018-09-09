@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>TO DO APP</title>
+		<script src="https://unpkg.com/react@16/umd/react.development.js"></script><!--REACT CDN-->
+    	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script><!--REACT DOM CDN-->
+    	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script><!--BABEL CDN-->
+	</head>
+	<body>
+
+		<div id="root"></div>
+		<script type="text/babel">
+			class App extends React.Component{
+				constructor(props) {
+					super(props);
+					this.state = {};
+				}
+				render(){
+					return(
+						<div>
+							<TodoForm />
+							<TodoList />
+						</div>
+					);
+				}
+			}
+			class TodoForm extends React.Component{
+				render(){
+					return(
+						<div>
+							<h1>TodoForm</h1>
+						</div>
+					);
+				}
+			}
+			class TodoList extends React.Component{
+				render(){
+					return(
+						<div>
+							<h1>TodoList</h1>
+						</div>
+					);
+				}
+			}
+			ReactDOM.render(
+				<App />,
+				document.getElementById('root')
+			);
+		</script>
+
+	</body>
+</html>

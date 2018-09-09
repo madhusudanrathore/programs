@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>NESTING</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      class Component1 extends React.Component{
+      constructor(props){
+          super(props);
+          this.state={name: 'madhusudan'};
+        }
+        render(){
+          return(
+            <div>
+              <h1>COMPONENT 1: {this.state.name}</h1>
+              <Component2 nameC2={this.state.name}/>
+            </div>
+          );
+        }
+      }
+      class Component2 extends React.Component{
+        render(){
+          return(
+            <div>
+              <h1>COMPONENT 2: {this.props.nameC2}</h1>
+              <Component2 />
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(
+        <Component1 />,
+        document.getElementById('root')
+      );
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<img id="image" src="a3.jpg" width="160" height="120">
+
+<form id="myform" action="http://www.google.com" >
+	<select onchange="change(this);" id="payment">
+	<option value="">Select</option>
+	<option value="http://www.paytm.com">Paytm</option>
+	<option value="https://www.payumoney.com/">PayUmoney</option>
+	<option value="http://www.axis.com">Axis</option>
+</select>
+	<div id="demo"></div>
+	<button type="submit" id="btn">Submit</button>
+</form>
+<!-- <img src="a3.jpg" width="160" height="120"> -->
+
+<script>
+function change(sel){
+	// console.log(sel);
+	var a = document.getElementById("payment").value;
+	document.getElementById("demo").innerHTML=a;
+	document.getElementById("myform").action = a;
+	document.getElementById("btn").innerHTML=sel.options[sel.selectedIndex].text;
+}
+</script>
+
+<p>The original image was a3.jpg, but the script changed it to a4.jpg</p>
+
+</body>
+</html>

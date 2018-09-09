@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script type="text/javascript" src="validation.js"> </script>
+
+</head>
+<body>
+
+    <form name="myForm" action="ABC.PHP"  method="post" onsubmit="return validateForm()">
+    First Name: <input type="text" name="fname" onBlur="validateForm()" >
+    <small id="demo" style=color:red></small>
+    <br>
+    <br>
+    Last Name: <input type="text" name="lname"  onBlur="validateForm()">
+    <small id="demo1" style=color:red></small>
+    <br>
+    <br>
+    Email : <input type="text" name="email"  onBlur="validateForm()">
+    <small id="demo2" style=color:red></small>
+    <br>
+    <br>
+    Mobile No : <input type="text" name="phone"  onBlur="validateForm()">
+    <small id="demo3" style=color:red></small>
+    <br>
+    <br>
+    
+    <input type="submit" value="Submit" ><br>
+
+    </form>
+
+</body>
+</html>

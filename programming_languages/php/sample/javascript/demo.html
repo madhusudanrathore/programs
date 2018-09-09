@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo JS</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		function abc() {
+			var android  = parseInt(document.getElementById("android").value);
+			var php  = parseInt(document.getElementById("php").value);
+			
+			var total= php+android;
+			var per = total/2;
+			document.getElementById("sum").innerHTML=total;
+			document.getElementById("per").innerHTML=per+"%";
+			if(android<35 || php<35) {
+				alert("So Sorry...");
+			} else {
+				 document.getElementById("y").src="co.gif"
+				alert("Congratulation..");
+			}
+		}
+	</script>
+</head>
+<body>
+	Android
+	<input type="number" min="0" max="100" id="android" name="android"><br>
+	Php 
+	<input type="number" min="0" max="100" id="php" name="php">
+	<h1>Hello</h1>
+	<div id="sum"></div>
+	<h1 id="per"></h1>
+	<button onclick="abc();">Click Here</button>
+	<img src="" alt="Imga" id="y">
+</body>
+</html>
