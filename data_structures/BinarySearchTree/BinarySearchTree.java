@@ -1,20 +1,21 @@
-#include<iostream>
-#include<stdlib.h>
-#include<string>
-using namespace std;
+class Node{
+    int data=0;
+    Node left=null, right=null;
 
-struct node {
-	int data;
-	node *left, *right;
-};
+    Node(int value){
+        this.data=value;
+    }
+}
 
-node *temp, *pre_temp;
+public class BinarySearchTree{
+    private head, temp, pre_temp;
+    BinarySearchTree(){
+        head=null;
+    }
+}
 
 class bst {
     public:
-        node *head;
-
-        bst() { head = NULL; }
 
         void insert_node(){//INSERTING RANDOM DATA
             node *new_node = new node;

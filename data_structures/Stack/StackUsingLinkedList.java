@@ -1,104 +1,66 @@
-#include <stdio.h>
-#include <stdbool.h>
+class Node{
+    int data=0;
+    Node next=null;
 
-struct stack{
-    int data;
-    struct stack *next;
-};
-
-struct stack *top = NULL;
-struct stack *temp = NULL;
-
-int value;
-
-int count = 0;
-
-void push( void ){
-
-    struct stack *element;
-    element = new stack;
-    ++count;
-
-    printf("ENTER VALUE\t");
-    scanf("%d", &value);
-    element->data = value;
-    printf("%d INSERTED\n", value);
-
-    if( top == NULL ){
-        top = element;
-        top->next = NULL;
-    }
-    else{
-        element->next = top;
-        top = element;
-    }
-
-}
-
-void pop( void ){
-
-    if( top == NULL ){
-        printf("UNDERFLOW\n");
-    }
-    else{
-        temp = top;
-        top = top->next;
-
-        printf("%d DELETED\n", temp->data);
-        delete temp;
-        --count;
+    Node(int value){
+        this.data=value;
     }
 }
 
-void display( void ){
+class StackUsingLinkedList{
+    protected Node top, temp;
+    protected int stack_size=5;
 
-    if( top == NULL){
-        printf("EMPTY STACK\n");
+    StackUsingLinkedList(){
+        this.top=null;
     }
-    else{
-        temp = top;
-        int i = count;
-        while( temp != NULL ){
-            printf("stack[%d] = %d\n", i, temp->data);
+    void push(int value){
+        Node new_node=new Node(value);
+        System.out.println( "PUSH OPERATION:\t" + value + " INSERTED" );
 
-            temp = temp->next;
-            --i;
+        if( this.top==null ){
+            this.top=new_node;
+        }else{
+            new_node.next=this.top;
+            this.top=new_node;
         }
     }
+    void pop(){
+        if( this.top==null ){
+            System.out.println( "POP OPERATION:\tUNDERFLOW");
+        }else{
+            this.temp=this.top;
+            this.top=this.temp.next;
+            System.out.println( "POP OPERATION:\t" + this.temp.data + " DELETED" );
+            this.temp=null;
+            System.gc();
+        }
+    }
+    void display(){
+        if( this.top==null ){
+            System.out.println("PRINTING STACK:\tEMPTY STACK");
+        }
+        else{
+            this.temp=this.top;
+            System.out.print("PRINTING STACK:\t");
+            while( this.temp!=null ){
+                System.out.print( this.temp.data + " " );
+                this.temp=this.temp.next;
+            }
+            System.out.println();
+        }
+    }
+    public static void main(String[] args) {
+        StackUsingLinkedList stack=new StackUsingLinkedList();
 
-}
+        for(int i=0; i<stack.stack_size; ++i)
+            stack.push(i+1);
+        
+        stack.display();
 
-int main(){
+        for(int i=0; i<stack.stack_size; ++i)
+            stack.pop();
 
-    int choice;
-    bool again = true;
-
-	while( again ){
-
-        printf("1). PUSH\n");
-        printf("2). POP\n");
-        printf("3). DISPLAY\n");
-        printf("4). EXIT\n");
-        printf("ENTER CHOICE\t");
-
-		scanf("%d", &choice);
-
-		switch( choice ){
-			case 1:
-				push();
-				break;
-			case 2:
-				pop();
-				break;
-			case 3:
-				display();
-				break;
-			case 4:
-				again = false;
-				break;
-			default:
-				printf("ERROR CHOICE\n");
-		}
-	}
-    return 0;
+        stack.display();
+    }
 }

@@ -1,5 +1,5 @@
 class StackUsingArray{
-	protected int top, stack_size=5, value, arr[];
+	protected int top, stack_size=5, arr[];
 
 	StackUsingArray(){
 		this.top=-1;
@@ -36,7 +36,7 @@ class StackUsingArray{
 		StackUsingArray stack=new StackUsingArray();
 
 		for(int i=0; i<stack.stack_size+3; ++i)
-			stack.push(i);
+			stack.push(i+1);
 		
 		stack.display();
 

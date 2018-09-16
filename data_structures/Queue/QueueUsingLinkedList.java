@@ -1,119 +1,67 @@
-#include<iostream>
-using namespace std;
+class Node{
+    int data=0;
+    Node next=null;
 
-struct node{
-    int data;
-    struct node *next;
-};
-
-int count = 0;
-int size;
-
-struct node *temp = NULL;
-struct node *front;
-struct node *rear;
-
-class linkedQueue{
-    public:
-
-    linkedQueue(){
-
-        front = NULL;
-        rear = NULL;
-
-        cout << "ENTER SIZE\t";
-        cin >> size;
+    Node(int value){
+        this.data=value;
     }
-    void enqueue( void ){
-
-        if( count < size ){
-
-            ++count;
-            struct node *element = new node;
-
-            cout << "ENTER VALUE\t";
-            cin >> element->data;
-
-            element->next = NULL;
-
-            cout << element->data << " INSERTED" << endl;
-
-            if( front == NULL ){//empty queue
-                front = rear = element;
-            }
-            else{//non-empty queue
-                rear->next = element;
-                rear = element;
-            }
-        }
-        else{
-            cout << "OVERFLOW" << endl;
-        }
-    }
-
-    void dequeue( void ){
-
-        if( front == NULL ){
-            cout << "UNDERFLOW" << endl;
-        }
-        else{
-            temp = front;
-            front = front->next;
-
-            cout << temp->data << " DELETED" << endl;
-            delete temp;
-        }
-    }
-
-    void display( void ){
-
-        if( front == NULL ){
-            cout << "EMPTY QUEUE" << endl;
-        }
-        else{
-            temp = front;
-            while( temp != NULL ){
-                cout << temp->data << "\t";
-
-                temp = temp->next;
-            }
-            cout << endl;
-        }
-    }
-};
-
-int main( ){
-
-    linkedQueue lq;
-    int choice;
-
-    while( true ){
-
-        cout << "1). ENQUEUE" << endl;
-        cout << "2). DEQUEUE" << endl;
-        cout << "3). DISPLAY" << endl;
-        cout << "4). EXIT" << endl;
-        cout << "ENTER CHOICE\t" << endl;
-
-        cin >> choice;
-
-        switch( choice ){
-            case 1:
-                lq.enqueue();
-                break;
-            case 2:
-                lq.dequeue();
-                break;
-            case 3:
-                lq.display();
-                break;
-            case 4:
-                return 0;
-            default:
-                cout << "ERROR CHOICE" << endl;
-        }
-    }
-
-    return 0;
 }
 
+class QueueUsingLinkedList{
+    protected Node front, rear, temp;
+    protected int queue_size=5;
+
+    QueueUsingLinkedList(){
+        this.front=this.rear=null;
+    }
+    void enqueue(int value){
+        Node new_node=new Node(value);
+
+        if( this.front==null && this.rear==null ){
+            this.front=this.rear=new_node;
+        }else{
+            this.rear.next=new_node;
+            this.rear=new_node;
+        }
+        System.out.println( "ENQUEUE OPERATION:\t" + value + " INSERTED" );
+    }
+    void dequeue(){
+        if( this.front==null ){
+            System.out.println( "DEQUEUE OPERATION:\tUNDERFLOW");
+        }else{
+            this.temp=this.front;
+            this.front=this.front.next;
+            System.out.println( "DEQUEUE OPERATION:\t" + this.temp.data + " DELETED" );
+            this.temp=null;
+            System.gc();
+        }
+    }
+    void display(){
+        if( this.front==null ){
+            System.out.println("EMPTY QUEUE");
+        }
+        else{
+            System.out.print("PRINTING QUEUE:\t");
+            this.temp=this.front;
+            while(this.temp!=null){
+                System.out.print( this.temp.data + " " );
+                this.temp=this.temp.next;
+            }
+
+            System.out.println();
+        }
+    }
+    public static void main(String[] args) {
+        QueueUsingLinkedList queue=new QueueUsingLinkedList();
+
+        for(int i=0; i<queue.queue_size; ++i)
+            queue.enqueue(i+1);
+        
+        queue.display();
+
+        for(int i=0; i<queue.queue_size; ++i)
+            queue.dequeue();
+
+        queue.display();
+    }
+}
