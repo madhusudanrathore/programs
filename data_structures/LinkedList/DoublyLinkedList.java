@@ -64,36 +64,41 @@ class DoublyLinkedList{
                 this.temp.prev.next=new_node;
                 this.temp.prev=new_node;
                 System.out.println( "INSERT BEFORE:\t" + value + " INSERTED" );
-            }else if(this.temp.data!=before_value){ // node not found
+            }else{ // node not found
                 System.out.println( "INSERT BEFORE:\t" + before_value + " NOT FOUND" );
             }
         }
     }
     
-    // void insert_after(int after_value, int value){
-    //     if(this.head==null){ // empty list
-    //         System.out.println( "INSERT AFTER:\tEMPTY LIST" );
-    //     }else if(this.head.next==null && this.temp.data==after_value){ // after first element
-    //             this.insert_end(value);
-    //     }else{ // search and insert
-    //         this.temp=this.head;
+    void insert_after(int after_value, int value){
+        if(this.head==null){ // empty list
+            System.out.println( "INSERT AFTER:\tEMPTY LIST" );
+        }else if(this.head.next==null && this.head.data==after_value){ // after first element
+                this.insert_end(value);
+        }else{ // search and insert
+            this.temp=this.head;
 
-    //         while(this.temp.data!=after_value && this.temp.next!=null){ // untill node found or null
-    //             this.temp=this.temp.next;
-    //         }
+            while(this.temp.data!=after_value && this.temp.next!=null){ // untill node found or null
+                this.temp=this.temp.next;
+            }
 
-    //         if(this.temp.data==after_value){ // node found
-    //             DoublyNode new_node=new DoublyNode(value);
-    //             new_node.next=this.temp.next;
-    //             new_node.prev=this.temp;
-    //             this.temp.next.prev=new_node;
-    //             this.temp.next=new_node;
-    //             System.out.println( "INSERT AFTER:\t" + value + " INSERTED" );
-    //         }else if(this.temp.data!=after_value){ // node not found
-    //             System.out.print( "INSERT AFTER:\t" + after_value + " NOT FOUND" );
-    //         }
-    //     }
-    // }
+            if(this.temp.data==after_value){ // node found
+                if(this.temp.next!=null){ // not last node
+                    DoublyNode new_node=new DoublyNode(value);
+                    new_node.next=this.temp.next;
+                    new_node.prev=this.temp;
+                    this.temp.next.prev=new_node;
+                    this.temp.next=new_node;
+                }else if(this.temp.next==null){ // last node
+                    this.insert_end(value);
+                }
+                
+                System.out.println( "INSERT AFTER:\t" + value + " INSERTED" );
+            }else{ // node not found
+                System.out.print( "INSERT AFTER:\t" + after_value + " NOT FOUND" );
+            }
+        }
+    }
     
     void delete_beg(){
         if(this.head==null){ // empty list
@@ -123,82 +128,86 @@ class DoublyLinkedList{
         }
     }
 
-    void delete_specific( int value ){
-        if(this.head==null){
+    void delete_specific(int value){
+        if(this.head==null){ // empty
             System.out.println( "DELETE SPECIFIC:\tEMPTY LIST" );
-        }else if(this.head.data==value){ // first node is to be deleted
+        }else if(this.head.data==value && this.head.next==null){ // first node is to be deleted and only one node present
             this.head=null;
             System.gc();
         }else{ // find node
             this.temp=this.head;
 
-            while(this.temp!=null){
-                if(this.temp.data!=value)
-                    this.temp=this.temp.next;
-                // else break;
+            while(this.temp.data!=value && this.temp.next!=null){
+                this.temp=this.temp.next;
             }
-            if(this.temp!=null){
-                this.temp.prev.next=this.temp.next;
-                this.temp.next.prev=this.temp.prev;
-                this.temp=null;
-                System.out.println( "DELETE SPECIFIC:\t" + value + " DELETED" );
-            }else System.out.println( "DELETE SPECIFIC:\t" + value + " NOT FOUND" );
+
+            if(this.temp.data==value){ // node found
+                if(this.temp.next!=null){ // not last node
+                    this.temp.prev.next=this.temp.next;
+                    this.temp.next.prev=this.temp.prev;
+                    this.temp=null;
+                    System.out.println( "DELETE SPECIFIC:\t" + value + " DELETED" );
+                }else if(this.temp.next==null){ // last node
+                    this.delete_end();
+                }
+            }else{ // not found
+                System.out.println( "DELETE SPECIFIC:\t" + value + " NOT FOUND" );
+            }
             System.gc();
         }
     }
 
-    // void delete_before(){
-    //     if(this.head==null){ // empty list
-    //         System.out.print( "Empty, Create first" );
-    //     }else{ // list not empty
-    //         this.temp=this.head;
+    void delete_before(int value){
+        if(this.head==null){ // empty list
+            System.out.println( "DELETE BEFORE:\tEMPTY LIST" );
+        }else if(this.head.data==value){ // to be deleted before first element
+            System.out.println( "DELETE BEFORE:\tNO ELEMENT BEFORE FIRST ELEMENT" );
+        }else{ // search and delete
+            this.temp=this.head;
 
-    //         if(this.temp.data==value)//first node
-    //             System.out.print( "NO NODE before First Element" );
-    //         else if(this.temp.next.data==value)//delete first node
-    //             this.delete_beg();
-    //         else{//find node
-    //             while(this.temp.data!=value && this.temp.next!=null){
-    //                 this.temp=this.temp.next;
-    //             }
-    //             if(this.temp.data==value){//found
-    //                 pre_this.temp=this.temp.prev;
-    //                 pre_this.temp.prev.next=this.temp;
-    //                 this.temp.prev=pre_this.temp.prev;
+            while(this.temp.data!=value && this.temp.next!=null){ // untill node found
+                this.temp=this.temp.next;
+            }
+            
+            if(this.temp.data==value){ // node found
+                if(this.temp.prev==this.head){ // second node
+                    this.head=this.temp;
+                }else{ // not second node
+                    this.temp.prev.prev.next=this.temp;
+                    this.temp.prev=this.temp.prev.prev;
+                }
+                System.gc();
+            }else{ // node not found
+                System.out.print( value + " Not Found" );
+            }
+        }
+    }
 
-    //                 delete pre_this.temp;
-    //             }
-    //             else{
-    //                 System.out.print( value + " Not Found" );
-    //             }
-
-    //         }
-    //     }
-    // }
-
-    // void delete_after(){
-    //     if(this.head==null)
-    //         System.out.print( "Empty, Create first" );
-    //     else{
-    //         int value;
-    //         this.temp=this.head;
-    //         System.out.print( "Enter NODE value AFTER which DATA is to be DELETED\t" );
-    //         cin >> value;
-    //         while(this.temp.next!=null && this.temp.data!=value){
-    //             this.temp=this.temp.next;
-    //         }
-    //         if(this.temp.next==null && this.temp.data==value)//last node
-    //             System.out.print( "Last Element, Cannot Delete" );
-    //         else if(this.temp.data!=value){
-    //             System.out.print( value + " Not Found" );
-    //         }
-    //         else{
-    //             next_this.temp=this.temp.next;
-    //             this.temp.next=next_this.temp.next;
-    //             next_this.temp.next.prev=this.temp;
-    //         }
-    //     }
-    // }
+    void delete_after(int value){
+        if(this.head==null){ // empty list
+            System.out.println( "DELETE AFTER:\tEMPTY LIST" );
+        }else if(this.head.next==null && this.head.data==value){ // after first element
+                this.delete_end();
+        }else{ // search and insert
+            int value;
+            this.temp=this.head;
+            System.out.print( "Enter NODE value AFTER which DATA is to be DELETED\t" );
+            cin >> value;
+            while(this.temp.next!=null && this.temp.data!=value){
+                this.temp=this.temp.next;
+            }
+            if(this.temp.next==null && this.temp.data==value)//last node
+                System.out.print( "Last Element, Cannot Delete" );
+            else if(this.temp.data!=value){
+                System.out.print( value + " Not Found" );
+            }
+            else{
+                next_this.temp=this.temp.next;
+                this.temp.next=next_this.temp.next;
+                next_this.temp.next.prev=this.temp;
+            }
+        }
+    }
 
     void display(){
         this.temp=this.head;
@@ -223,16 +232,16 @@ class DoublyLinkedList{
             linked_list.insert_beg(i+1);
             linked_list.insert_end(i+6);
 
-            // linked_list.insert_before(i+1, (i+1)*1000);
-            // linked_list.insert_after(i+6, (i+6)*1000);
+            linked_list.insert_before(i+1, (i+1)*1000);
+            linked_list.insert_after(i+6, (i+6)*1000);
         }
         linked_list.display();
 
-        // for(int i=0; i<5; ++i){
-        //     linked_list.delete_before(i+1);
-        //     linked_list.delete_after(i+6);
-        // }
-        // linked_list.display();
+        for(int i=0; i<5; ++i){
+            linked_list.delete_before(i+1);
+            linked_list.delete_after(i+6);
+        }
+        linked_list.display();
 
         for(int i=0; i<5; ++i){
             linked_list.delete_beg();
@@ -240,7 +249,7 @@ class DoublyLinkedList{
         }
         linked_list.display();
 
-        linked_list.delete_specific(100);
+        // linked_list.delete_specific(100);
         linked_list.display();
     }
 }
