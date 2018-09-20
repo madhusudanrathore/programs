@@ -142,18 +142,20 @@ class DoublyLinkedList{
             }
 
             if(this.temp.data==value){ // node found
-                if(this.temp.next!=null){ // not last node
+                if(this.temp==this.head){ // first node
+                    this.head=this.head.next;
+                }else if(this.temp.next==null){ // last node
+                    this.temp.prev.next=null;
+                }else if(this.temp.next!=null){ // not last node
                     this.temp.prev.next=this.temp.next;
                     this.temp.next.prev=this.temp.prev;
-                    this.temp=null;
-                    System.out.println( "DELETE SPECIFIC:\t" + value + " DELETED" );
-                }else if(this.temp.next==null){ // last node
-                    this.delete_end();
                 }
+                System.out.println( "DELETE SPECIFIC:\t" + value + " DELETED" );
+                this.temp=null;
+                System.gc();
             }else{ // not found
                 System.out.println( "DELETE SPECIFIC:\t" + value + " NOT FOUND" );
             }
-            System.gc();
         }
     }
 
@@ -176,6 +178,7 @@ class DoublyLinkedList{
                     this.temp.prev.prev.next=this.temp;
                     this.temp.prev=this.temp.prev.prev;
                 }
+                System.out.println( "DELETE BEFORE:\t" + value + " DELETED" );
                 System.gc();
             }else{ // node not found
                 System.out.print( value + " Not Found" );
@@ -187,24 +190,27 @@ class DoublyLinkedList{
         if(this.head==null){ // empty list
             System.out.println( "DELETE AFTER:\tEMPTY LIST" );
         }else if(this.head.next==null && this.head.data==value){ // after first element
-                this.delete_end();
-        }else{ // search and insert
-            int value;
+            System.out.println( "DELETE AFTER:\tONLY ONE NODE" );
+        }else{ // search and delete
             this.temp=this.head;
-            System.out.print( "Enter NODE value AFTER which DATA is to be DELETED\t" );
-            cin >> value;
+
             while(this.temp.next!=null && this.temp.data!=value){
                 this.temp=this.temp.next;
             }
-            if(this.temp.next==null && this.temp.data==value)//last node
-                System.out.print( "Last Element, Cannot Delete" );
-            else if(this.temp.data!=value){
-                System.out.print( value + " Not Found" );
-            }
-            else{
-                next_this.temp=this.temp.next;
-                this.temp.next=next_this.temp.next;
-                next_this.temp.next.prev=this.temp;
+
+            if(this.temp.data==value){ // node found
+                if(this.temp.next==null){ // last node
+                    System.out.println( "DELETE AFTER:\tLAST NODE" );
+                }else if(this.temp.next.next==null){ // second last node
+                    this.temp.next=null;
+                }else{ // other case
+                    this.temp.next.next.prev=this.temp;
+                    this.temp.next=this.temp.next.next;
+                }
+                System.out.println( "DELETE AFTER:\t" + value + " DELETED" );
+                System.gc();
+            }else{ // not found
+                System.out.println( "DELETE AFTER:\t" + value + " NOT FOUND" );
             }
         }
     }
@@ -249,7 +255,7 @@ class DoublyLinkedList{
         }
         linked_list.display();
 
-        // linked_list.delete_specific(100);
+        linked_list.delete_specific(100);
         linked_list.display();
     }
 }

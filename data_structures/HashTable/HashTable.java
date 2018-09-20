@@ -13,8 +13,7 @@ class DoublyLinkedList{
     DoublyNode head, temp;
 
     DoublyLinkedList(){
-        DoublyNode new_node=new DoublyNode(100);
-        this.head=new_node;
+        this.head=null;
     }
 
     void insert_beg(int value){
@@ -118,50 +117,29 @@ class DoublyLinkedList{
 }
 
 public class HashTable{
-	protected int size=100;
-	protected DoublyLinkedList hashtable;
+	protected int size=10;
+	protected DoublyLinkedList hashtable[];
 	
 	HashTable(){
-		// HASH TABLE wiint hold HEAD REFERENCES to DOUBLY LINKED LISTS
-		this.hashtable=new DoublyLinkedList[size];
-		
-		for (int k=0; k < 10000; k++)
-			this.hash_sample_insert();
-	}
-	
-	void hash_sample_insert() {
-		Random rand = new Random();
-		int val, key;
-		
-		val=rand.nextInt(9235); // between 0 to 9234
-
-		key=((val%size) + (val % (size - 1))) % size;//hash function using DOUBLE HASHING
-
-		// if(hashtable[key].head==null){ // empty first location of LIST
-		// 	hashtable[key].create(val);
-		// }else{ // non empty first location of LIST, thus enter at beginning
-		// 	hashtable[key].insert_beg(val);
-		// }
-		hashtable[key].insert_beg(val);
+		// HASH TABLE will hold HEAD REFERENCES to DOUBLY LINKED LISTS
+		this.hashtable=new DoublyLinkedList[this.size];
 	}
 
-	// void hash_insert_beg() {
-	// 	int val, key;
+	void hash_insert_beg(int value){
+		int key;
+        
+        // hash function using DOUBLE HASHING
+		key=((value%size)+(value%(size-1)))%size;
+		
+        System.out.println( "KEY=" + key );
+        // this.hashtable[key].insert_beg(value);
+        if(this.hashtable[key]==null){
+            // System.out.println( "KEY=" + key );
+            this.hashtable[key].display();
+        }
+	}
 
-	// 	System.out.println( "Enter a VALUE to be mapped in HASH TABLE" << endl;
-	// 	cin >> val;
-
-	// 	key=((val%size) + (val % (size - 1))) % size;//hash function using DOUBLE HASHING
-	// 	System.out.println( "KEY=" << key << endl;
-
-	// 	if (hashtable[key].head==null)//empty first location of LIST
-	// 		hashtable[key].create(val);
-
-	// 	else//non empty first location of LIST, thus enter at beginning
-	// 		hashtable[key].insert_beg(val);
-	// }
-
-	// void hash_insert_end() {
+	// void hash_insert_end(){
 	// 	int val, key;
 
 	// 	System.out.println( "Enter a VALUE to be mapped in HASH TABLE" << endl;
@@ -177,7 +155,7 @@ public class HashTable{
 	// 		hashtable[key].insert_end(val);
 	// }
 
-	// void hash_delete_beg() {
+	// void hash_delete_beg(){
 	// 	int val, key;
 
 	// 	System.out.println( "Enter a VALUE to be DELETED from HASH TABLE" << endl;
@@ -186,7 +164,7 @@ public class HashTable{
 	// 	key=val % 9;
 
 
-	// 	if (hashtable[key].head==null) {//empty location
+	// 	if (hashtable[key].head==null){//empty location
 	// 		System.out.println( "Empty Hash" << endl;
 	// 	}
 	// 	else {
@@ -194,7 +172,7 @@ public class HashTable{
 	// 	}
 	// }
 
-	// void hash_search() {
+	// void hash_search(){
 	// 	int val, key;
 
 	// 	System.out.println( "Enter a VALUE to be searched in HASH TABLE" << endl;
@@ -204,8 +182,8 @@ public class HashTable{
 	// 	hashtable[key].search(val, key);
 	// }
 
-	void hash_display() {
-		for (int i=0; i < size; i++) {
+	void hash_display(){
+		for (int i=0; i<this.size; i++){
 			System.out.println( "HT[" + (i+1) + "]\t" );
 			hashtable[i].display();
 		}
@@ -215,10 +193,13 @@ public class HashTable{
 
 		HashTable table=new HashTable();
 
-		// hash_insert_beg();
-		// hash_insert_end();
-		// hash_delete_beg();
-		hash_display();
-		// hash_search();
+        for ( int i=0; i<10; ++i ){
+            table.hash_insert_beg(i+1);
+            // table.hash_insert_end();
+        }
+		
+		// table.hash_delete_beg();
+		// table.hash_display();
+		// table.hash_search();
 	}
 }
