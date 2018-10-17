@@ -1,13 +1,11 @@
 #include<stdio.h>
-#include<conio.h>
 
-void main()
+int main()
 {
 	FILE *ptr;
 	int i,no;
 	float bal;
 	char ch,name[30],filename[10];
-	clrscr();
 	printf("Enter The File Name:-");
 	gets(filename);
 	ptr=fopen(filename,"w");
@@ -35,5 +33,4 @@ void main()
 		printf("\n\t%4d\t\t%10s\t\t%6.2f\n",no,name,bal);
 	}
 	fclose(ptr);
-	getch();
 }

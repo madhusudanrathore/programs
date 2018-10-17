@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<conio.h>
 
 union emp
 {
@@ -13,10 +12,9 @@ union dept
 	union emp e1;
 };
 
-void main()
+int main()
 {
 	union dept d;
-	clrscr();
 	fflush(stdin);
 	printf("\nEnter Employee Name:");
 	gets(d.e1.ename);
@@ -31,5 +29,4 @@ void main()
 	printf("\nEmployee No:%d",d.e1.eno);
 	printf("\nDepartment Name:%s",d.dname);
 	printf("\nDepartment No:%d",d.dno);
-	getch();
 }

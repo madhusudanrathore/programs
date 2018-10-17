@@ -1,11 +1,9 @@
 #include<stdio.h>
-#include<conio.h>
 
 void main ()
 {
 	FILE *fp;
    	int len;
-	clrscr();
 	fp = fopen("test.txt", "r");
 	if( fp == NULL ) 
    	{

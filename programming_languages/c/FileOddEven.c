@@ -1,10 +1,8 @@
 #include<stdio.h>
-#include<conio.h>
-void main()
+int main()
 {
   	FILE *f1,*f2,*f3;
    	int number,i;
-	clrscr();
 	
 	printf("\n MYDATA file contents:");
    	f1=fopen("MYDATA","w");

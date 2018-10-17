@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<conio.h>
 
 struct student
 {
@@ -8,10 +7,9 @@ struct student
 	int s1,s2,s3;
 }student st1[100];
 
-void main()
+int main()
 {
 	int i,n;
-	clrscr();
 	printf("\nEnter Nunber Of Student:");
 	scanf("%d",&n);
 	for(i=0;i<n;i++)
@@ -32,5 +30,4 @@ void main()
 		printf("\nName Of Student %d: Is %s",i+1,st1[i].name);
 		printf("Marks Of Student %d Is %d %d & %d:",i+1,st1[i].s1,st1[i].s2,st1[i].s3);
 	}
-	getch();
 }

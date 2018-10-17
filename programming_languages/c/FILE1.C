@@ -1,11 +1,9 @@
 #include<stdio.h>
-#include<conio.h>
 
-void main()
+int main()
 {
 	FILE *f1;
 	char  c;
-	clrscr();
 	printf("Data input output");
 	f1=fopen("Input","w"); /*Open the file Input*/
 	while((c=getchar())!='0') /*get a character from key board*/
@@ -20,5 +18,4 @@ void main()
 		printf("%c",c);
 	}          
 	fclose(f1); 
-	getch();
 }

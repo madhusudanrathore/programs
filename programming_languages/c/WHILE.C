@@ -1,17 +1,14 @@
 #include<stdio.h>
-#include<conio.h>
 
-void main()
+int main()
 {
-	int n,sum=0;
-	clrscr();
-	printf("Enter Value OF N:");
-	scanf("%d",&n);
-	do
-	{
+	int n=10,sum=0;
+	
+	do{
 		sum=sum+n;
 		n--;
 	}while(n>0);
+	
 	printf("\n\nSum = %d",sum);
-	getch();
+	return 0 ;
 }

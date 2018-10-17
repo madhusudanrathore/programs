@@ -5,7 +5,6 @@ void main ()
 {
 	int i = 0;
 	int j = 10;
-	clrscr();
 
 		while( i < j)      //step 1
 		{
@@ -26,5 +25,4 @@ void main ()
 		}
        //step 3
 		while(i < 10);
-	getch();
 }

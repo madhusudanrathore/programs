@@ -4,7 +4,6 @@
  {
 	FILE *f1;
 	char x;
-	clrscr();
 	f1=fopen("abc.txt","w");
 	printf("Enter the Data : ");
 	while((x=getchar())!='0')
@@ -18,5 +17,4 @@
 		printf("%c",x);
 	}
 	fclose(f1);
-	getch();
  }

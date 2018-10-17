@@ -1,12 +1,10 @@
 #include<stdio.h>
-#include<conio.h>
 #include<string.h>
 
-void main()
+int main()
 {
 	char str1[20],str2[20],str3[20];
 	int l1,l2,x;
-	clrscr();
 	printf("\nEnter String 1:");
 	gets(str1);
 	printf("\nEnter String 3:");
@@ -29,5 +27,4 @@ void main()
 	printf("\n\nAfter Concatnat Str 1 = %s",str1);
 	strrev(str2);
 	printf("\n\nAfter Reverse Str2 = %s",str2);
-	getch();
 }
